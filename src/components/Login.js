@@ -3,17 +3,24 @@ import { Grid, Paper, Link } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { loginData } from "../servicer/login";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const handleLogin = () => {
     const values = {
       Email: Email,
       password: password,
     };
-    loginData(values);
-    console.log(values, "");
+    const data = loginData(values).then((data) => {
+      console.log("Received data:", data);
+      if (data.status == 200) {
+        navigate("/travel");
+      }
+    });
+
     // alert(values);
     setEmail("");
     setPassword("");
