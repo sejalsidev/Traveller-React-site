@@ -4,10 +4,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { loginData } from "../servicer/login";
 import { useNavigate } from "react-router-dom";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 const Login = () => {
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const handleLogin = () => {
     const values = {
@@ -17,7 +21,7 @@ const Login = () => {
     const data = loginData(values).then((data) => {
       console.log("Received data:", data);
       if (data.status == 200) {
-        navigate("/travel");
+        navigate("/UserDetail");
       }
     });
 
@@ -27,7 +31,7 @@ const Login = () => {
   };
   const paperStyle = {
     padding: 20,
-    height: "40vh",
+    height: "50vh",
     width: "1000px",
     margin: "100px auto",
     textAlign: "center",
@@ -39,7 +43,6 @@ const Login = () => {
           <Grid container spacing={2} alignItems="center">
             <Grid item xs={12} sm={6}>
               <img
-                // src=require={}"./images/travel-img.jpg !important"
                 src={require("../images/travel-img.jpg")}
                 alt="Travel"
                 style={{ width: "100%" }}
@@ -92,6 +95,22 @@ const Login = () => {
                       },
                     }}
                   ></TextField>
+                </Grid>
+                <Grid item>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          style={{ color: "#16aaac" }}
+                          value={rememberMe}
+                          onValueChange={(newValue) => setRememberMe(newValue)}
+                        />
+                      }
+                      label="Remembar Me"
+                      style={{ color: "#16aaac" }}
+                    />
+                  </FormGroup>
                 </Grid>
                 <Grid item>
                   <Link href="#" underline="none">
